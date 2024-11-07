@@ -1,0 +1,69 @@
+port ${PORT}
+bind 0.0.0.0
+# 設定密碼驗證方式，只能擇一
+# masterauth ""
+# requirepass ""
+aclfile /usr/local/etc/users.acl
+
+daemonize no
+protected-mode no
+
+#集群
+cluster-enabled yes
+cluster-config-file nodes.conf
+cluster-node-timeout 5000
+
+# 依預設， maxmemory 設為資料節點可用記憶體的 80%
+# maxmemory-policy
+# noeviction    當達到 maxmemory 限制時，不會收回金鑰並傳回錯誤。
+# allkeys-lru   先收回近期使用較少的 (LRU) 索引鍵。
+# volatile-lru  從一組先到期的金鑰中收回最近使用過的金鑰 (LRU)。
+# allkeys-random        隨機收回金鑰。
+# volatile-random       從到期的金鑰集中隨機收回金鑰。
+# volatile-ttl  收回到期的金鑰，並先嘗試收回存活時間較短 (TTL) 的金鑰。
+
+#maxmemory-policy allkeys-lru
+#maxmemory 10gb
+
+#客户端分配的缓冲区大小，0為不限制
+client-output-buffer-limit normal 0 0 0
+client-output-buffer-limit slave 0 0 0
+client-output-buffer-limit pubsub 0 0 0
+
+#表示Redis执行定期任务的频率
+hz 20
+
+dir /data
+#RDB持久化
+#關閉RDB持久化要把＃拿掉
+#save ""
+#在给定时间间隔内有多少次写操作时，Redis 将执行自动的快照（生成 RDB 文件）
+save 900 1
+save 300 10
+save 60 10000
+stop-writes-on-bgsave-error no
+rdbcompression yes
+rdbchecksum yes
+dbfilename dump.rdb
+rdb-del-sync-files no
+
+#AOF持久化
+#appendonly yes
+#appendfilename "appendonly.aof"
+## appendfsync always
+#appendfsync everysec
+## appendfsync no
+#no-appendfsync-on-rewrite no
+#auto-aof-rewrite-percentage 100
+#auto-aof-rewrite-min-size 64mb
+#aof-load-truncated yes
+#aof-use-rdb-preamble yes
+
+# 日志配置
+## debug:会打印生成大量信息，适用于开发/测试阶段
+## verbose:包含很多不太有用的信息，但是不像debug级别那么混乱
+## notice:适度冗长，适用于生产环境
+## warning:仅记录非常重要、关键的警告消息
+#loglevel notice
+## 日志文件路径
+#logfile "/var/log/redis${PORT}.log"

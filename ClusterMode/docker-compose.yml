@@ -1,0 +1,141 @@
+version: '3'
+
+services:
+  redis-p1:
+    container_name: redis-p1
+    image: redis:7.2.1-alpine3.18
+    command: redis-server /usr/local/etc/redis.conf
+    # network_mode: host
+    user: root
+    stdin_open: true
+    tty: true
+    ports:
+      - "8001:8001"
+      - '18001:18001' # used to connected in cluster 8001@18001
+    volumes:
+      - ./config/users.acl:/usr/local/etc/users.acl
+      - ./8001/redis.conf:/usr/local/etc/redis.conf
+      - ./8001/data:/data
+    environment:
+      - TZ=Asia/Taipei
+      - TAKE_FILE_OWNERSHIP=true
+    logging:
+      options:
+        max-size: '100m'
+        max-file: '10'
+
+
+  redis-p2:
+    container_name: redis-p2
+    image: redis:7.2.1-alpine3.18
+    command: redis-server /usr/local/etc/redis.conf
+    # network_mode: host
+    user: root
+    stdin_open: true
+    tty: true
+    ports:
+      - "8002:8002"
+      - "18002:18002"
+    volumes:
+      - ./config/users.acl:/usr/local/etc/users.acl
+      - ./8002/redis.conf:/usr/local/etc/redis.conf
+      - ./8002/data:/data
+    environment:
+      - TZ=Asia/Taipei
+      - TAKE_FILE_OWNERSHIP=true
+    logging:
+      options:
+        max-size: '100m'
+        max-file: '10'
+
+  redis-p3:
+    container_name: redis-p3
+    image: redis:7.2.1-alpine3.18
+    command: redis-server /usr/local/etc/redis.conf
+    # network_mode: host
+    user: root
+    stdin_open: true
+    tty: true
+    ports:
+      - "8003:8003"
+      - "18003:18003"
+    volumes:
+      - ./config/users.acl:/usr/local/etc/users.acl
+      - ./8003/redis.conf:/usr/local/etc/redis.conf
+      - ./8003/data:/data
+    environment:
+      - TZ=Asia/Taipei
+      - TAKE_FILE_OWNERSHIP=true
+    logging:
+      options:
+        max-size: '100m'
+        max-file: '10'
+
+  redis-p4:
+    container_name: redis-p4
+    image: redis:7.2.1-alpine3.18
+    command: redis-server /usr/local/etc/redis.conf
+    # network_mode: host
+    user: root
+    stdin_open: true
+    tty: true
+    ports:
+      - "8004:8004"
+      - "18004:18004"
+    volumes:
+      - ./config/users.acl:/usr/local/etc/users.acl
+      - ./8004/redis.conf:/usr/local/etc/redis.conf
+      - ./8004/data:/data
+    environment:
+      - TZ=Asia/Taipei
+      - TAKE_FILE_OWNERSHIP=true
+    logging:
+      options:
+        max-size: '100m'
+        max-file: '10'
+
+  redis-p5:
+    container_name: redis-p5
+    image: redis:7.2.1-alpine3.18
+    command: redis-server /usr/local/etc/redis.conf
+    # network_mode: host
+    user: root
+    stdin_open: true
+    tty: true
+    ports:
+      - "8005:8005"
+      - "18005:18005"
+    volumes:
+      - ./config/users.acl:/usr/local/etc/users.acl
+      - ./8005/redis.conf:/usr/local/etc/redis.conf
+      - ./8005/data:/data
+    environment:
+      - TZ=Asia/Taipei
+      - TAKE_FILE_OWNERSHIP=true
+    logging:
+      options:
+        max-size: '100m'
+        max-file: '10'
+
+  redis-p6:
+    container_name: redis-p6
+    image: redis:7.2.1-alpine3.18
+    command: redis-server /usr/local/etc/redis.conf
+    # network_mode: host
+    user: root
+    stdin_open: true
+    tty: true
+    ports:
+      - "8006:8006"
+      - "18006:18006"
+    volumes:
+      - ./config/users.acl:/usr/local/etc/users.acl
+      - ./8006/redis.conf:/usr/local/etc/redis.conf
+      - ./8006/data:/data
+    environment:
+      - TZ=Asia/Taipei
+      - TAKE_FILE_OWNERSHIP=true
+    logging:
+      options:
+        max-size: '100m'
+        max-file: '10'
